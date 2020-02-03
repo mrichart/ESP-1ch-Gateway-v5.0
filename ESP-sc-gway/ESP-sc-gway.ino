@@ -165,7 +165,7 @@ char description[64]= _DESCRIPTION;				// used for free form description
 // define servers
 
 IPAddress ntpServer;							// IP address of NTP_TIMESERVER
-IPAddress ttnServer;							// IP Address of thethingsnetwork server
+IPAddress ttnServer(192, 168, 1, 191);							// IP Address of thethingsnetwork server
 IPAddress thingServer;
 
 WiFiUDP Udp;
@@ -1158,17 +1158,17 @@ void setup() {
 	Serial.print((double)freq/1000000);
 	Serial.println(" Mhz.");
 
-	if (!WiFi.hostByName(NTP_TIMESERVER, ntpServer))		// Get IP address of Timeserver
-	{
-		die("Setup:: ERROR hostByName NTP");
-	};
-	delay(100);
+//	if (!WiFi.hostByName(NTP_TIMESERVER, ntpServer))		// Get IP address of Timeserver
+//	{
+//		die("Setup:: ERROR hostByName NTP");
+//	};
+//	delay(100);
 #ifdef _TTNSERVER
-	if (!WiFi.hostByName(_TTNSERVER, ttnServer))			// Use DNS to get server IP once
-	{
-		die("Setup:: ERROR hostByName TTN");
-	};
-	delay(100);
+//	if (!WiFi.hostByName(_TTNSERVER, ttnServer))			// Use DNS to get server IP once
+//	{
+//		die("Setup:: ERROR hostByName TTN");
+//	};
+//	delay(100);
 #endif
 #ifdef _THINGSERVER
 	if (!WiFi.hostByName(_THINGSERVER, thingServer))
@@ -1194,16 +1194,16 @@ void setup() {
 	// interrupt driven method.
 	
 	//setTime((time_t)getNtpTime());
-	while (timeStatus() == timeNotSet) {
-#if DUSB>=1
-		if (( debug>=0 ) && ( pdebug & P_MAIN )) 
-			Serial.println(F("M setupTime:: Time not set (yet)"));
-#endif
-		delay(500);
-		time_t newTime;
-		newTime = (time_t)getNtpTime();
-		if (newTime != 0) setTime(newTime);
-	}
+	//while (timeStatus() == timeNotSet) {
+//#if DUSB>=1
+//		if (( debug>=0 ) && ( pdebug & P_MAIN )) 
+//			Serial.println(F("M setupTime:: Time not set (yet)"));
+//#endif
+//		delay(500);
+//		time_t newTime;
+//		newTime = 0;//(time_t)getNtpTime();
+//		if (newTime != 0) setTime(newTime);
+//	}
 	// When we are here we succeeded in getting the time
 	startTime = now();										// Time in seconds
 #if DUSB>=1
